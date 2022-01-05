@@ -5,6 +5,11 @@ width : int (default=400) #输出的画布宽度，默认为400像素
 height : int (default=200) #输出的画布高度，默认为200像素
 prefer_horizontal : float (default=0.90) #词语水平方向排版出现的频率，默认 0.9 （所以词语垂直方向排版出现频率为 0.1 ）
 mask : nd-array or None (default=None) #如果参数为空，则使用二维遮罩绘制词云。如果 mask 非空，设置的宽高值将被忽略，遮罩形状被 mask 取代。除全白（#FFFFFF）的部分将不会绘制，其余部分会用于绘制词云。如：bg_pic = imread('读取一张图片.png')，背景图片的画布一定要设置为白色（#FFFFFF），然后显示的形状为不是白色的其他颜色。可以用ps工具将自己要显示的形状复制到一个纯白色的画布上再保存，就ok了。
+
+contour_width:float，设置词云边界宽度，默认为0，不画出词云边界线，当mask中填充部分的边界平滑时可以设置contour_width，否则不需要设置该参数，会产生锯齿。
+【注意】若设置mode ='RGBA',且contour_width不为0, 则会抛出异常 ValueError: operands could not be broadcast together with shapes (310,309,4) (310,309,3)
+contour_color:'black'，边界线颜色，默认为黑色，当contour_width不为0时，设置本参数改变边界线颜色。
+
 scale : float (default=1) #按照比例进行放大画布，如设置为1.5，则长和宽都是原来画布的1.5倍
 min_font_size : int (default=4) #显示的最小的字体大小
 font_step : int (default=1) #字体步长，如果步长大于1，会加快运算但是可能导致结果出现较大的误差
