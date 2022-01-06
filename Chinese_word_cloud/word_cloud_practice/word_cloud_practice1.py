@@ -1,4 +1,5 @@
 # -*- coding=utf-8 -*-
+# python version 3.8.x
 """
 font_path : string  #字体路径，需要展现什么字体就把该字体路径+后缀名写上，如：font_path = '黑体.ttf'
 width : int (default=400) #输出的画布宽度，默认为400像素
@@ -11,6 +12,7 @@ contour_width:float，设置词云边界宽度，默认为0，不画出词云边
 contour_color:'black'，边界线颜色，默认为黑色，当contour_width不为0时，设置本参数改变边界线颜色。
 
 scale : float (default=1) #按照比例进行放大画布，如设置为1.5，则长和宽都是原来画布的1.5倍
+        【可以通过调大该数值使得图片更清晰，比如：scale=20】
 min_font_size : int (default=4) #显示的最小的字体大小
 font_step : int (default=1) #字体步长，如果步长大于1，会加快运算但是可能导致结果出现较大的误差
 max_words : number (default=200) #要显示的词的最大个数
@@ -92,7 +94,8 @@ if __name__ == '__main__':
     mask_color = ImageColorGenerator(mask)
     # 构造wordcloud对象,当参数【mode】为“RGBA”并且background_color不为空时，背景为透明
     # [repeat=True, max_words=100, stopwords=set(stop_words_list)]
-    wcd = WordCloud(mask=mask, background_color='white', mode="RGBA", color_func=mask_color, font_path=FONT_PATH)
+    wcd = WordCloud(mask=mask, background_color='white', mode="RGBA", color_func=mask_color, font_path=FONT_PATH,
+                    scale=20)
     # 词频字典
     freq = count_frequencies(word_list)
     # 字典排序（倒序）
@@ -102,6 +105,6 @@ if __name__ == '__main__':
     wcd.generate_from_frequencies(frequencies=freq)
     # 需要generate，后设置颜色, 等同于构造方法中设置color_func属性
     # wcd.recolor(color_func=mask_color)
-    wcd.to_file('constructor_color.png')
+    wcd.to_file('constructor_color_scale.png')
     img = wcd.to_image()
     img.show(title='由构造方法设置color_func生成')
